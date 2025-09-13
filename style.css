@@ -50,11 +50,21 @@ p  { font-size: clamp(1rem, 3.4vw, 1.1rem); line-height: 1.7; color: var(--muted
 }
 
 /* ========== Hero ========== */
+/* Hero Section */
 #hero {
   position: relative;
+  display: flex;               /* center content */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;           /* 👈 Full screen height */
+  width: 100%;
+
   color: #fff;
-  padding: 88px 20px 72px;
   text-align: center;
+  padding: 0 20px;
+
   background:
     radial-gradient(1200px 600px at 50% -10%, rgba(79,107,134,0.35), transparent 60%),
     linear-gradient(180deg, rgba(79,107,134,0.70) 0%, rgba(79,107,134,0.60) 60%, rgba(79,107,134,0.55) 100%),
@@ -62,6 +72,35 @@ p  { font-size: clamp(1rem, 3.4vw, 1.1rem); line-height: 1.7; color: var(--muted
   background-size: cover;
   background-position: center;
   isolation: isolate;
+}
+
+#hero::after {
+  /* subtle overlay pattern */
+  content:"";
+  position:absolute; inset:0;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-position: 0 0, 12px 12px;
+  background-size: 24px 24px, 24px 24px;
+  pointer-events:none;
+}
+
+#hero h1 {
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+  font-size: clamp(3rem, 8vw, 5rem);
+  letter-spacing: 0.5px;
+  margin: 0;
+  text-shadow: 0 6px 22px rgba(0,0,0,0.25);
+  z-index: 1;
+}
+
+#hero .subtext,
+#hero .date {
+  z-index: 1;
+  margin-top: 12px;
+  font-size: clamp(1rem, 3.5vw, 1.25rem);
 }
 
 #hero::after{
@@ -241,3 +280,4 @@ footer{
   html{ scroll-behavior: auto; }
   #rsvp button{ transition: none; }
 }
+
