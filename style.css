@@ -68,7 +68,7 @@ p  { font-size: clamp(1rem, 3.4vw, 1.1rem); line-height: 1.7; color: var(--muted
   background:
     radial-gradient(1200px 600px at 50% -10%, rgba(79,107,134,0.35), transparent 60%),
     linear-gradient(180deg, rgba(79,107,134,0.70) 0%, rgba(79,107,134,0.60) 60%, rgba(79,107,134,0.55) 100%),
-    url("https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1600&auto=format&fit=crop");
+    url("myimage.webp");
   background-size: cover;
   background-position: center;
   isolation: isolate;
@@ -280,4 +280,5 @@ footer{
   html{ scroll-behavior: auto; }
   #rsvp button{ transition: none; }
 }
+
 
