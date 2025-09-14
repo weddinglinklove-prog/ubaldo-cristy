@@ -9,56 +9,63 @@
 </head>
 <body>
 
-  <!-- Hero Section -->
-  <section id="hero">
-    <h1>Diana & Ubaldo</h1>
+  <!-- Hero (names only) -->
+  <section id="hero" class="snap">
+    <h1>Diana &amp; Ubaldo</h1>
     <p class="subtext">Join us in celebrating our wedding</p>
-    <p class="date">December 20, 2025</p>
+    <a class="scroll-indicator" href="#save-the-date" aria-label="Scroll to Save the Date">⌄</a>
   </section>
 
-  <!-- Event Details -->
+  <!-- Save the Date (full screen background image) -->
+  <section id="save-the-date" class="snap">
+    <div class="overlay">
+      <h2>Save the Date</h2>
+      <p class="date">December 20</p>
+    </div>
+  </section>
+
+  <!-- Event Details (buttons to open maps) -->
   <section id="details">
     <h2>Event Details</h2>
-    
+
     <div class="event">
       <h3>Ceremony</h3>
       <p><strong>Time:</strong> 15:30 PM</p>
       <p><strong>Location:</strong> Parroquia Inmaculada Concepción de María</p>
-      <iframe 
-        src="https://maps.app.goo.gl/bEymWp8KyF2xSq7z8" 
-        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
-      </iframe>
+      <a class="map-btn" href="https://maps.app.goo.gl/bEymWp8KyF2xSq7z8" target="_blank" rel="noopener">
+        Open in Maps
+      </a>
     </div>
 
     <div class="event">
       <h3>Reception</h3>
       <p><strong>Time:</strong> 17:30 PM</p>
       <p><strong>Location:</strong> Quinta Fidelina Orellana</p>
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3878.06499999999!2d-89.19000000000001!3d13.690000000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f632e236f6f58a3%3A0x123456789abcdef!2sQuinta%20Fidelina%20Orellana!5e0!3m2!1ses!2ssv!4v1699999999999" 
-        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
-      </iframe>
+      <a class="map-btn" href="https://maps.app.goo.gl/ZB2EzFZVugiD3U3e8" target="_blank" rel="noopener">
+        Open in Maps
+      </a>
     </div>
 
     <p class="dress-code"><strong>Dress Code:</strong> Formal</p>
   </section>
 
-  <!-- RSVP Section -->
+  <!-- RSVP -->
   <section id="rsvp">
     <h2>RSVP</h2>
     <p>Please confirm your attendance by <strong>December 1</strong>.</p>
     <div class="buttons">
-      <button class="yes">I will attend</button>
-      <button class="no">I can’t attend</button>
+      <button class="yes"> I will attend</button>
+      <button class="no"> I can’t attend</button>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <p>Made with ❤️ for our wedding celebration</p>
   </footer>
 
 </body>
+
 </html>
+
 
 
