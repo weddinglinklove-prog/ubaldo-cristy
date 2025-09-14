@@ -1,15 +1,13 @@
-/* ========== Base / Reset ========== */
+/* ===== Reset / Base (fixes top blank bar on mobile) ===== */
 :root{
-  /* Winter-elegant palette */
   --bg: #f6f7f9;
   --surface: #ffffff;
   --ink: #2b2f36;
   --muted: #6c7583;
-  --accent: #8aa6c1;      /* cool winter blue */
-  --accent-deep: #4f6b86; /* deep slate blue */
-  --gild: #b7a27a;        /* soft gold accent */
+  --accent: #8aa6c1;
+  --accent-deep: #4f6b86;
+  --gild: #b7a27a;
 
-  /* Sizing */
   --radius: 16px;
   --radius-sm: 12px;
   --shadow: 0 10px 24px rgba(28, 36, 44, 0.12);
@@ -17,102 +15,71 @@
   --maxw: 880px;
 }
 
-* { box-sizing: border-box; }
-html {
+*{ box-sizing: border-box; }
+html{
+  margin: 0;
+  padding: 0;
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
 }
-body {
-  margin: 0;
+
+body{
+  margin: 0; padding: 0;
   font-family: 'Playfair Display', serif;
   color: var(--ink);
   background: var(--bg);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Snap scrolling between full-screen sections */
+  scroll-snap-type: y mandatory;
+  overscroll-behavior-y: contain;
 }
 
-/* Better touch experience on Android */
-a, button { -webkit-tap-highlight-color: transparent; }
-button { touch-action: manipulation; }
-
-/* Fluid type scale (mobile-first) */
-h1, h2, h3, p { margin: 0; }
-h1 { font-size: clamp(2.6rem, 6vw, 4.2rem); line-height: 1.08; }
-h2 { font-size: clamp(1.4rem, 4.2vw, 2rem); line-height: 1.2; }
-h3 { font-size: clamp(1.1rem, 3.6vw, 1.35rem); line-height: 1.25; }
-p  { font-size: clamp(1rem, 3.4vw, 1.1rem); line-height: 1.7; color: var(--muted); }
-
-.container {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding: 0 16px;
+/* Removes notch offset gaps on Android/iOS */
+#hero, #save-the-date{
+  padding-top: env(safe-area-inset-top, 0);
+  padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
-/* ========== Hero ========== */
-/* Hero Section */
-#hero {
+/* Fluid type */
+h1, h2, h3, p{ margin:0; }
+h1{ font-size: clamp(3rem, 8vw, 5rem); line-height:1.08; }
+h2{ font-size: clamp(1.6rem, 4.6vw, 2.2rem); line-height:1.2; }
+h3{ font-size: clamp(1.1rem, 3.6vw, 1.35rem); line-height:1.25; }
+p { font-size: clamp(1rem, 3.2vw, 1.1rem); line-height:1.7; color: var(--muted); }
+
+.container{ max-width: var(--maxw); margin:0 auto; padding: 0 16px; }
+
+/* ===== Full-screen sections ===== */
+.snap{
+  /* Use modern viewport units; provide fallbacks */
+  min-height: 100vh;     /* fallback */
+  min-height: 100svh;    /* small viewport on mobile (fixes URL bar) */
+  min-height: 100dvh;    /* dynamic viewport */
+  width: 100%;
+  scroll-snap-align: start;
   position: relative;
-  display: flex;               /* center content */
+}
+
+/* ===== Hero (names only) ===== */
+#hero{
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  min-height: 100vh;           /* 👈 Full screen height */
-  width: 100%;
-
-  color: #fff;
   text-align: center;
+  color: #fff;
   padding: 0 20px;
 
   background:
-    radial-gradient(1200px 600px at 50% -10%, rgba(79,107,134,0.35), transparent 60%),
-    linear-gradient(180deg, rgba(79,107,134,0.70) 0%, rgba(79,107,134,0.60) 60%, rgba(79,107,134,0.55) 100%),
-    url("myimage.webp");
+    linear-gradient(180deg, rgba(79,107,134,0.70), rgba(79,107,134,0.55)),
+    url("myphoto.webp");           /* change to your hero image file if needed */
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   isolation: isolate;
-}
-
-#hero::after {
-  /* subtle overlay pattern */
-  content:"";
-  position:absolute; inset:0;
-  background-image:
-    radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-    radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-position: 0 0, 12px 12px;
-  background-size: 24px 24px, 24px 24px;
-  pointer-events:none;
-}
-
-#hero h1 {
-  font-family: 'Great Vibes', cursive;
-  font-weight: 400;
-  font-size: clamp(3rem, 8vw, 5rem);
-  letter-spacing: 0.5px;
-  margin: 0;
-  text-shadow: 0 6px 22px rgba(0,0,0,0.25);
-  z-index: 1;
-}
-
-#hero .subtext,
-#hero .date {
-  z-index: 1;
-  margin-top: 12px;
-  font-size: clamp(1rem, 3.5vw, 1.25rem);
-}
-
-#hero::after{
-  /* subtle snowflake/filigree pattern overlay */
-  content:"";
-  position:absolute; inset:0;
-  background-image:
-    radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-    radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-position: 0 0, 12px 12px;
-  background-size: 24px 24px, 24px 24px;
-  pointer-events:none;
 }
 
 #hero h1{
@@ -121,30 +88,86 @@ p  { font-size: clamp(1rem, 3.4vw, 1.1rem); line-height: 1.7; color: var(--muted
   letter-spacing: 0.5px;
   text-shadow: 0 6px 22px rgba(0,0,0,0.25);
   color: #fff;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: slideUpIn .7s ease-out .1s forwards;
 }
 
 #hero .subtext{
-  margin-top: 12px;
-  font-size: clamp(1.05rem, 3.6vw, 1.25rem);
+  margin-top: 10px;
   color: rgba(255,255,255,0.95);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUpIn .7s ease-out .18s forwards;
 }
 
-#hero .date{
-  margin-top: 10px;
-  font-weight: 600;
+/* Scroll indicator to hint user to swipe/scroll down */
+.scroll-indicator{
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-decoration: none;
+  color: rgba(255,255,255,0.9);
+  font-size: 1.6rem;
+  line-height: 1;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.18);
+  box-shadow: var(--shadow-soft);
+  animation: floatY 1.6s ease-in-out infinite;
+}
+
+/* Slide-up entrance + floating arrow */
+@keyframes slideUpIn{
+  to{ opacity:1; transform: translateY(0); }
+}
+@keyframes floatY{
+  0%,100%{ transform: translate(-50%, 0); }
+  50%{ transform: translate(-50%, -8px); }
+}
+
+/* ===== Save the Date (full-screen background) ===== */
+#save-the-date{
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: #fff;
+
+  background:
+    linear-gradient(180deg, rgba(20,29,38,0.45), rgba(20,29,38,0.6)),
+    url("save.webp");              /* 👈 put your 'Save the Date' background image here */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#save-the-date .overlay{
+  padding: 24px 20px;
+  backdrop-filter: blur(1px);
+}
+
+#save-the-date h2{
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+#save-the-date .date{
+  font-size: clamp(1.15rem, 3.8vw, 1.35rem);
+  font-weight: 700;
   letter-spacing: 1.2px;
   color: #fff;
-  border-top: 1px solid rgba(255,255,255,0.25);
+  border-top: 1px solid rgba(255,255,255,0.35);
   display: inline-block;
   padding-top: 8px;
 }
 
-/* ========== Card Sections ========== */
-section{
-  margin: 22px 0;
-}
+/* ===== Card Sections ===== */
+section{ margin: 22px 0; }
 
-#details, #rsvp {
+#details, #rsvp{
   background: var(--surface);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -153,7 +176,7 @@ section{
   width: min(96%, var(--maxw));
 }
 
-#details h2, #rsvp h2 {
+#details h2, #rsvp h2{
   color: var(--accent-deep);
   margin-bottom: 18px;
   position: relative;
@@ -167,7 +190,7 @@ section{
   border-radius: 2px;
 }
 
-/* Event blocks */
+/* Event blocks (no iframes; button opens Maps) */
 .event{
   background: #fafbfc;
   border: 1px solid #eef1f4;
@@ -177,79 +200,42 @@ section{
   text-align: left;
   margin: 16px 0 22px;
 }
+.event h3{ color: var(--accent); margin-bottom: 8px; }
+.event p { color: var(--ink); }
 
-.event h3{
-  color: var(--accent);
-  margin-bottom: 8px;
-}
-
-.event p{
-  color: var(--ink);
-}
-
-/* Maps responsive without HTML changes */
-.event iframe{
-  width: 100%;
-  height: 260px;            /* good on phones */
-  border: 0;
-  border-radius: 12px;
+.map-btn{
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(180deg, #5e86a2, #4f6b86);
   box-shadow: var(--shadow-soft);
+  transition: transform .06s ease, opacity .2s ease;
 }
+.map-btn:active{ transform: translateY(1px); }
 
-/* Dress code line */
-.dress-code{
-  margin-top: 6px;
-  color: var(--ink);
-  font-style: italic;
-}
-
-/* ========== RSVP ========== */
-#rsvp p { color: var(--ink); }
-
+/* RSVP */
+#rsvp p{ color: var(--ink); }
 #rsvp .buttons{
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 16px;
+  display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:16px;
 }
-
 #rsvp button{
-  font-family: inherit;
-  font-weight: 600;
-  font-size: 1rem;
-  padding: 14px 20px;
-  min-width: 160px;                /* comfortable touch target */
-  border: 1px solid transparent;
-  border-radius: 999px;            /* pill */
-  cursor: pointer;
+  font-family: inherit; font-weight: 600; font-size: 1rem;
+  padding: 14px 20px; min-width: 160px;
+  border: 1px solid transparent; border-radius: 999px; cursor: pointer;
   transition: transform .06s ease, box-shadow .2s ease, background .2s ease, opacity .2s ease;
   box-shadow: var(--shadow-soft);
 }
+#rsvp button.yes{ background: linear-gradient(180deg, #5ea271, #4b8a5e); color:#fff; }
+#rsvp button.no { background: linear-gradient(180deg, #e06a5d, #c95548); color:#fff; }
+#rsvp button:active{ transform: translateY(1px); }
+#rsvp button:focus-visible{ outline:2px solid var(--gild); outline-offset:2px; }
 
-#rsvp button.yes{
-  background: linear-gradient(180deg, #5ea271, #4b8a5e);
-  color: #fff;
-}
-#rsvp button.no{
-  background: linear-gradient(180deg, #e06a5d, #c95548);
-  color: #fff;
-}
-
-#rsvp button:active{
-  transform: translateY(1px);
-}
-
-/* Focus styles for accessibility */
-#rsvp button:focus-visible{
-  outline: 2px solid var(--gild);
-  outline-offset: 2px;
-}
-
-/* ========== Footer ========== */
+/* Footer */
 footer{
-  text-align: center;
-  color: #fff;
+  text-align: center; color:#fff;
   background: linear-gradient(180deg, var(--accent-deep), #324455);
   padding: 16px;
   border-top-left-radius: var(--radius);
@@ -259,26 +245,16 @@ footer{
   box-shadow: var(--shadow);
 }
 
-/* ========== Media Queries (Tablets & Up) ========== */
+/* Responsive tweaks */
 @media (min-width: 480px){
-  #hero { padding: 108px 24px 88px; }
-  .event { padding: 18px 20px; }
-  .event iframe{ height: 300px; }
+  .event{ padding: 18px 20px; }
 }
-
 @media (min-width: 768px){
-  #details, #rsvp { padding: 36px 28px; }
-  .event-grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-  }
+  #details, #rsvp{ padding: 36px 28px; }
 }
 
-/* ========== Reduced Motion Preference ========== */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior: auto; }
-  #rsvp button{ transition: none; }
+  .scroll-indicator, #hero h1, #hero .subtext{ animation: none; opacity: 1; transform: none; }
 }
-
-
