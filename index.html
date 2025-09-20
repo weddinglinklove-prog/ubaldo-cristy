@@ -8,8 +8,8 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css?v=6" />
+  <!-- CSS (use your pastel theme style.css) -->
+  <link rel="stylesheet" href="style.css?v=7" />
   <meta name="theme-color" content="#cfa6b8" />
   <meta name="color-scheme" content="light only">
   <meta name="description" content="You're invited to our wedding — Save the date and RSVP." />
@@ -143,7 +143,7 @@
       </div>
     </div>
 
-    <!-- Winter Pastel Palette (no black/white/red) -->
+    <!-- Winter Pastel Palette -->
     <div class="palette" role="list">
       <span role="listitem" class="swatch" style="--c:#A7BED3" title="Dusty Blue"></span>
       <span role="listitem" class="swatch" style="--c:#C6B7D2" title="Lavender Gray"></span>
@@ -167,15 +167,10 @@
     <p>Made with ❤️ for our wedding celebration</p>
   </footer>
 
-  <!-- Invitation Key Logic + Prefilled Form Redirect -->
+  <!-- Invitation Key Logic + Redirect -->
   <script>
   (async () => {
-    // === CONFIG: Replace with your real Google Form IDs ===
-    const FORM_BASE = "https://docs.google.com/forms/d/e/REPLACE_FORM_ID/viewform";
-    const ENTRY_DESC = "entry.111111";  // your Google Form field id for "Invitation for"
-    const ENTRY_QTY  = "entry.222222";  // your Google Form field id for "Qty allowed"
-    const ENTRY_KEY  = "entry.333333";  // optional: store the key used
-
+    // Read ?k=... from URL
     const params = new URLSearchParams(window.location.search);
     const key = params.get("k");
 
@@ -183,49 +178,53 @@
     const yesBtn = rsvpSection?.querySelector(".yes");
     const noBtn  = rsvpSection?.querySelector(".no");
 
-    // info line above buttons
+    // Info line above buttons
     const info = document.createElement("p");
     info.style.marginTop = "8px";
     info.style.fontWeight = "600";
     rsvpSection.insertBefore(info, rsvpSection.querySelector(".buttons"));
 
-    // load invitations.json (in repo root)
+    // Load your invitations map from invitation_list.json
     let map;
     try {
-      const res = await fetch("invitations.json?v=1", { cache: "no-store" });
+      const res = await fetch("invitation_list.json?v=1", { cache: "no-store" });
       if (!res.ok) throw new Error("Fetch error");
       const data = await res.json();
       map = data.invitations || {};
     } catch (e) {
       info.textContent = "We couldn't load your invitation right now. Please try again.";
-      if (yesBtn) yesBtn.disabled = true;
-      if (noBtn)  noBtn.disabled  = true;
+      yesBtn && (yesBtn.disabled = true);
+      noBtn  && (noBtn.disabled  = true);
       return;
     }
 
+    // Find invite by key
     const inv = key && map[key];
     if (!inv) {
       info.textContent = "Invitation not found. Please use your personal link.";
-      if (yesBtn) yesBtn.disabled = true;
-      if (noBtn)  noBtn.disabled  = true;
+      yesBtn && (yesBtn.disabled = true);
+      noBtn  && (noBtn.disabled  = true);
       return;
     }
 
+    // Show who and qty
     info.textContent = `${inv.description} — ${inv.qty} ${inv.qty === 1 ? 'person' : 'persons'} allowed`;
 
-    function buildFormURL(attending) {
-      const u = new URL(FORM_BASE);
-      u.searchParams.set("usp", "pp_url");
-      u.searchParams.set(ENTRY_DESC, inv.description);
-      u.searchParams.set(ENTRY_QTY, String(inv.qty));
-      u.searchParams.set(ENTRY_KEY, key);
-      // If you add an "Attending?" field in your form, also pass it:
-      // u.searchParams.set("entry.444444", attending ? "Yes" : "No");
-      return u.toString();
+    // Prefer per-invite link from JSON; if missing, stay on page
+    function targetURL() {
+      if (inv.link && typeof inv.link === "string") return inv.link;
+      alert("RSVP link not configured yet for this invitation.");
+      return null;
     }
 
-    yesBtn?.addEventListener("click", () => window.location.href = buildFormURL(true));
-    noBtn ?.addEventListener("click", () => window.location.href = buildFormURL(false));
+    yesBtn?.addEventListener("click", () => {
+      const url = targetURL();
+      if (url) window.location.href = url;
+    });
+    noBtn ?.addEventListener("click", () => {
+      const url = targetURL();
+      if (url) window.location.href = url;
+    });
   })();
   </script>
 </body>
