@@ -2,7 +2,7 @@
 :root{
   /* Soft, elegant pastels */
   --bg: #faf9f7;           /* ivory */
-  --surface: #ffffff;      
+  --surface: #ffffff;
   --ink: #3b3a3a;          /* soft charcoal */
   --muted: #7a7572;        /* warm taupe */
 
@@ -32,6 +32,7 @@ body{
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* full-screen section snapping */
   scroll-snap-type: y mandatory;
   overscroll-behavior-y: contain;
 }
@@ -60,7 +61,7 @@ p { font-size: clamp(1rem, 3.2vw, 1.1rem); line-height:1.7; color: var(--muted);
   background:
     linear-gradient(180deg, rgba(167,126,145,0.55), rgba(167,126,145,0.40)), /* pastel rose veil */
     url("myphoto.webp");
-  background-size: cover; background-position: center;
+  background-size: cover; background-position: center; background-repeat: no-repeat;
 }
 #hero h1{
   font-family: 'Great Vibes', cursive;
@@ -91,14 +92,14 @@ p { font-size: clamp(1rem, 3.2vw, 1.1rem); line-height:1.7; color: var(--muted);
 @keyframes slideUpIn{ to{ opacity:1; transform:translateY(0); } }
 @keyframes floatY{ 0%,100%{ transform:translate(-50%,0);} 50%{ transform:translate(-50%,-8px);} }
 
-/* ===== Save the Date ===== */
+/* ===== Save the Date (full-screen bg) ===== */
 #save-the-date{
   display: grid; place-items: center;
   text-align: center; color: #fff;
   background:
     linear-gradient(180deg, rgba(126,150,132,0.45), rgba(126,150,132,0.60)), /* sage veil */
     url("save.webp");
-  background-size: cover; background-position: center;
+  background-size: cover; background-position: center; background-repeat: no-repeat;
 }
 #save-the-date .overlay{ padding: 24px 20px; }
 #save-the-date h2{ letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; color: #fff; }
@@ -108,7 +109,7 @@ p { font-size: clamp(1rem, 3.2vw, 1.1rem); line-height:1.7; color: var(--muted);
   display: inline-block; padding-top: 8px;
 }
 
-/* ===== Generic Section Cards ===== */
+/* ===== Generic Card Sections ===== */
 section{ margin: 22px 0; }
 #details,#rsvp,#itinerary,#dresscode{
   background: var(--surface); border-radius: var(--radius);
@@ -176,6 +177,18 @@ section{ margin: 22px 0; }
 
 /* ===== RSVP ===== */
 #rsvp p{ color: var(--ink); }
+.invite-details{
+  margin: 16px 0;
+  padding: 12px 16px;
+  background: #fdfcfb;
+  border: 1px solid #f0ece8;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+  color: var(--ink);
+}
+.invite-details p{ margin: 4px 0; }
+
 #rsvp .buttons{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:16px; }
 #rsvp button{
   font-family:inherit; font-weight:600; font-size:1rem;
@@ -208,6 +221,8 @@ footer{
   .timeline li{ grid-template-columns:90px 24px 1fr; }
   .timeline .card{ padding:14px 16px; }
 }
+
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
   .scroll-indicator,#hero h1,#hero .subtext{ animation:none; opacity:1; transform:none; }
