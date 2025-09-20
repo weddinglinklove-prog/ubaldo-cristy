@@ -32,6 +32,7 @@ body{
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   /* full-screen section snapping */
   scroll-snap-type: y mandatory;
   overscroll-behavior-y: contain;
@@ -166,14 +167,37 @@ section{ margin: 22px 0; }
 .timeline .card h3{ margin-bottom:4px; color: var(--ink); font-size:1.05rem; }
 .timeline .card p{ margin:0; color: var(--muted); }
 
-/* ===== Dress Code ===== */
-.dc-row{ display:grid; grid-template-columns:36px 1fr; gap:12px; align-items:start; margin:6px 0 16px; color: var(--ink);}
+/* ===== Dress Code (Forbidden Colors) ===== */
+.dc-row{
+  display:grid; grid-template-columns:36px 1fr;
+  gap:12px; align-items:start; margin:6px 0 16px; color: var(--ink);
+}
 .dc-icon{ color: var(--gild); }
 .dc-text p{ color: var(--ink); }
-.palette{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
-.swatch{ --size:40px; width:var(--size); height:var(--size); background:var(--c);
-  border-radius:10px; box-shadow: var(--shadow-soft);}
-.swatch--light{ border:1px solid #e5e8ee; }
+
+.palette{
+  display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin:12px 0;
+}
+.swatch{
+  --size:46px;
+  width:var(--size); height:var(--size);
+  border-radius:12px; position:relative; box-shadow: var(--shadow-soft);
+}
+.swatch::after{
+  content:"✕";
+  position:absolute; inset:0;
+  display:grid; place-items:center;
+  font-size:1.4rem; font-weight:700; color:#fff;
+  text-shadow:0 1px 3px rgba(0,0,0,0.5);
+}
+
+.forbidden-white{ background:#ffffff; border:1px solid #ddd; }
+.forbidden-red{   background:#c0392b; }
+.forbidden-gray{  background:#7f8c8d; }
+
+.note{
+  text-align:center; margin-top:6px; font-size:0.95rem; color: var(--muted);
+}
 
 /* ===== RSVP ===== */
 #rsvp p{ color: var(--ink); }
