@@ -1,236 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Diana & Ubaldo — Wedding Invitation</title>
+  <title>Diana & Ubaldo — Invitación de boda</title>
 
-  <!-- Fonts -->
+  <!-- Fuentes -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- CSS (use your pastel theme style.css) -->
-  <link rel="stylesheet" href="style.css?v=7" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css?v=8" />
   <meta name="theme-color" content="#cfa6b8" />
   <meta name="color-scheme" content="light only">
-  <meta name="description" content="You're invited to our wedding — Save the date and RSVP." />
+  <meta name="description" content="Acompáñanos en nuestra boda — Reserva la fecha y confirma tu asistencia." />
 </head>
 <body>
 
-  <!-- Hero (names only) -->
+  <!-- Hero (solo nombres) -->
   <section id="hero" class="snap">
     <h1>Diana &amp; Ubaldo</h1>
-    <p class="subtext">Join us in celebrating our wedding</p>
-    <a class="scroll-indicator" href="#save-the-date" aria-label="Scroll to Save the Date">⌄</a>
+    <p class="subtext">Acompáñanos a celebrar nuestra boda</p>
+    <a class="scroll-indicator" href="#save-the-date" aria-label="Desplazar a Reserva la fecha">⌄</a>
   </section>
 
-  <!-- Save the Date (full screen background image) -->
+  <!-- Reserva la fecha (pantalla completa con imagen) -->
   <section id="save-the-date" class="snap">
     <div class="overlay">
-      <h2>Save the Date</h2>
-      <p class="date">December 20</p>
+      <h2>Reserva la fecha</h2>
+      <p class="date">20 de diciembre</p>
     </div>
   </section>
 
-  <!-- Event Details (buttons open in Maps app) -->
+  <!-- Detalles del evento (botones abren la app de mapas) -->
   <section id="details">
-    <h2>Event Details</h2>
+    <h2>Detalles del evento</h2>
 
     <div class="event">
-      <h3>💒 Ceremony</h3>
-      <p><strong>Time:</strong> 15:30 PM</p>
-      <p><strong>Location:</strong> Parroquia Inmaculada Concepción de María</p>
-      <a class="map-btn" href="https://maps.app.goo.gl/bEymWp8KyF2xSq7z8" target="_blank" rel="noopener">Open in Maps</a>
+      <h3>Ceremonia</h3>
+      <p><strong>Hora:</strong> 15:30</p>
+      <p><strong>Lugar:</strong> Parroquia Inmaculada Concepción de María</p>
+      <a class="map-btn" href="https://maps.app.goo.gl/bEymWp8KyF2xSq7z8" target="_blank" rel="noopener">Abrir en Mapas</a>
     </div>
 
     <div class="event">
-      <h3>🎉 Reception</h3>
-      <p><strong>Time:</strong> 17:30 PM</p>
-      <p><strong>Location:</strong> Quinta Fidelina Orellana</p>
-      <a class="map-btn" href="https://maps.app.goo.gl/ZB2EzFZVugiD3U3e8" target="_blank" rel="noopener">Open in Maps</a>
+      <h3>Recepción</h3>
+      <p><strong>Hora:</strong> 17:30</p>
+      <p><strong>Lugar:</strong> Quinta Fidelina Orellana</p>
+      <a class="map-btn" href="https://maps.app.goo.gl/ZB2EzFZVugiD3U3e8" target="_blank" rel="noopener">Abrir en Mapas</a>
     </div>
   </section>
 
-  <!-- Itinerary -->
+  <!-- Itinerario (línea de tiempo vertical, sin íconos) -->
   <section id="itinerary">
-    <h2>Itinerary</h2>
+    <h2>Itinerario</h2>
     <ol class="timeline">
       <li>
         <div class="time">15:30</div>
-        <div class="dot" aria-hidden="true">
-          <!-- ring -->
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
-            <circle cx="12" cy="14" r="6"></circle>
-            <path d="M9 7h6l-1.6-2.2a1 1 0 0 0-.8-.4h-1.2a1 1 0 0 0-.8.4L9 7z"></path>
-          </svg>
-        </div>
+        <div class="dot" aria-hidden="true"></div>
         <div class="card">
-          <h3>Ceremony</h3>
+          <h3>Ceremonia</h3>
           <p>Parroquia Inmaculada Concepción de María</p>
         </div>
       </li>
 
       <li>
         <div class="time">18:00</div>
-        <div class="dot" aria-hidden="true">
-          <!-- champagne -->
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
-            <path d="M8 3h8l-1 6a5 5 0 0 1-6 0L8 3z"></path><path d="M12 9v11"></path>
-          </svg>
-        </div>
+        <div class="dot" aria-hidden="true"></div>
         <div class="card">
-          <h3>Reception</h3>
-          <p>Quinta Fidelina Orellana</p>
+          <h3>Recepción</h3>
+          <p>Inicio de la recepción</p>
         </div>
       </li>
 
       <li>
         <div class="time">19:00</div>
-        <div class="dot" aria-hidden="true">
-          <!-- dinner cloche -->
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
-            <path d="M3 17h18"></path><path d="M6 17a6 6 0 1 1 12 0"></path><path d="M12 7v-1"></path>
-          </svg>
-        </div>
+        <div class="dot" aria-hidden="true"></div>
         <div class="card">
-          <h3>Dinner</h3>
-          <p>Bon appétit</p>
+          <h3>Cena</h3>
+          <p>Servicio de cena</p>
         </div>
       </li>
 
       <li>
         <div class="time">20:30</div>
-        <div class="dot" aria-hidden="true">
-          <!-- music -->
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
-            <path d="M9 18a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm6-12v12"></path><path d="M15 6l6-2v12"></path>
-          </svg>
-        </div>
+        <div class="dot" aria-hidden="true"></div>
         <div class="card">
-          <h3>First Dance</h3>
-          <p>Join us on the dance floor</p>
+          <h3>Primer baile</h3>
+          <p>¡Acompáñanos en la pista!</p>
         </div>
       </li>
 
       <li>
         <div class="time">21:00</div>
-        <div class="dot" aria-hidden="true">
-          <!-- sparkles -->
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
-            <path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/>
-          </svg>
-        </div>
+        <div class="dot" aria-hidden="true"></div>
         <div class="card">
-          <h3>Party</h3>
-          <p>Let’s celebrate!</p>
+          <h3>Fiesta</h3>
+          <p>Continuamos celebrando</p>
         </div>
       </li>
     </ol>
   </section>
 
-<!-- Dress Code -->
-<section id="dresscode">
-  <h2>Dress Code</h2>
-  <div class="dc-row">
-    <div class="dc-icon" aria-hidden="true">
-      <!-- hanger -->
-      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6">
-        <path d="M8 7a4 4 0 1 1 8 0c0 1.5-1 2.1-2.2 2.8-.9.5-1.8 1.2-1.8 2.2"></path>
-        <path d="M3 17l9-6 9 6"></path>
-      </svg>
+  <!-- Código de vestimenta (sin íconos; colores prohibidos) -->
+  <section id="dresscode">
+    <h2>Código de vestimenta</h2>
+    <div class="dc-row">
+      <div class="dc-text">
+        <p><strong>Formal.</strong> Por favor, evita usar los siguientes colores:</p>
+      </div>
     </div>
-    <div class="dc-text">
-      <p><strong>Formal attire.</strong> Please <em>avoid wearing</em> the following colors:</p>
+
+    <div class="palette forbidden" role="list">
+      <span role="listitem" class="swatch forbidden-white" title="Blanco"></span>
+      <span role="listitem" class="swatch forbidden-red" title="Rojo"></span>
+      <span role="listitem" class="swatch forbidden-gray" title="Gris"></span>
     </div>
-  </div>
+    <p class="note">Gracias por ayudarnos a mantener la armonía del evento.</p>
+  </section>
 
-  <!-- Forbidden Colors -->
-  <div class="palette forbidden" role="list">
-    <span role="listitem" class="swatch forbidden-white" title="White"></span>
-    <span role="listitem" class="swatch forbidden-red" title="Red"></span>
-    <span role="listitem" class="swatch forbidden-gray" title="Gray"></span>
-  </div>
-  <p class="note">Thank you for respecting this request so the couple stands out ✨</p>
-</section>
+  <!-- RSVP -->
+  <section id="rsvp">
+    <h2>Confirmación de asistencia</h2>
+    <p>Por favor confirma tu asistencia antes del <strong>1 de diciembre</strong>.</p>
 
+    <!-- Mostramos a quién va dirigida y el cupo -->
+    <div id="invite-details" class="invite-details"></div>
 
-<!-- RSVP -->
-<section id="rsvp">
-  <h2>RSVP</h2>
-  <p>Please confirm your attendance by <strong>December 1</strong>.</p>
-
-  <!-- New: Invitation details will be injected here -->
-  <div id="invite-details" class="invite-details"></div>
-
-  <div class="buttons">
-    <button class="yes">✅ I will attend</button>
-    <button class="no">❌ I can’t attend</button>
-  </div>
-</section>
+    <div class="buttons">
+      <button class="confirm">Confirmar asistencia</button>
+    </div>
+  </section>
 
   <footer>
-    <p>Made with ❤️ for our wedding celebration</p>
+    <p>Tu presencia es nuestro mejor regalo</p>
   </footer>
 
-  <!-- Invitation Key Logic + Redirect -->
-<script>
-(async () => {
-  // Read ?k=... from URL
-  const params = new URLSearchParams(window.location.search);
-  const key = params.get("k");
+  <!-- Lógica de clave de invitación + redirección -->
+  <script>
+  (async () => {
+    // Leer ?k=... de la URL
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get("k");
 
-  const rsvpSection = document.querySelector("#rsvp");
-  const yesBtn = rsvpSection?.querySelector(".yes");
-  const noBtn  = rsvpSection?.querySelector(".no");
-  const inviteDetails = document.getElementById("invite-details");
+    const rsvpSection = document.querySelector("#rsvp");
+    const confirmBtn = rsvpSection?.querySelector(".confirm");
+    const inviteDetails = document.getElementById("invite-details");
 
-  // Load invitations
-  let map;
-  try {
-    const res = await fetch("invitation_list.json?v=2", { cache: "no-store" });
-    if (!res.ok) throw new Error("Fetch error");
-    const data = await res.json();
-    map = data.invitations || {};
-  } catch (e) {
-    inviteDetails.textContent = "We couldn't load your invitation right now. Please try again.";
-    yesBtn && (yesBtn.disabled = true);
-    noBtn  && (noBtn.disabled  = true);
-    return;
-  }
+    // Cargar el mapa de invitaciones
+    let map;
+    try {
+      const res = await fetch("invitation_list.json?v=2", { cache: "no-store" });
+      if (!res.ok) throw new Error("Fetch error");
+      const data = await res.json();
+      map = data.invitations || {};
+    } catch (e) {
+      inviteDetails.textContent = "No pudimos cargar tu invitación. Intenta nuevamente.";
+      confirmBtn && (confirmBtn.disabled = true);
+      return;
+    }
 
-  // Find invite by key
-  const inv = key && map[key];
-  if (!inv) {
-    inviteDetails.textContent = "Invitation not found. Please use your personal link.";
-    yesBtn && (yesBtn.disabled = true);
-    noBtn  && (noBtn.disabled  = true);
-    return;
-  }
+    // Buscar invitación por clave
+    const inv = key && map[key];
+    if (!inv) {
+      inviteDetails.textContent = "Invitación no encontrada. Por favor utiliza tu enlace personal.";
+      confirmBtn && (confirmBtn.disabled = true);
+      return;
+    }
 
-  // Show name + qty in RSVP section
-  inviteDetails.innerHTML = `
-    <p><strong>Invitation for:</strong> ${inv.description}</p>
-    <p><strong>Guests allowed:</strong> ${inv.qty}</p>
-  `;
+    // Mostrar nombre y cantidad en la sección RSVP
+    inviteDetails.innerHTML = `
+      <p><strong>Invitación para:</strong> ${inv.description}</p>
+      <p><strong>Personas permitidas:</strong> ${inv.qty}</p>
+    `;
 
-  // Prefer per-invite link from JSON
-  function targetURL() {
-    if (inv.link && typeof inv.link === "string") return inv.link;
-    alert("RSVP link not configured yet for this invitation.");
-    return null;
-  }
+    // Usar el enlace específico de la invitación
+    function targetURL() {
+      if (inv.link && typeof inv.link === "string") return inv.link;
+      alert("Aún no se ha configurado el enlace de confirmación para esta invitación.");
+      return null;
+    }
 
-  yesBtn?.addEventListener("click", () => {
-    const url = targetURL();
-    if (url) window.location.href = url;
-  });
-  noBtn ?.addEventListener("click", () => {
-    const url = targetURL();
-    if (url) window.location.href = url;
-  });
-})();
-</script>
-
+    confirmBtn?.addEventListener("click", () => {
+      const url = targetURL();
+      if (url) window.location.href = url;
+    });
+  })();
+  </script>
 </body>
 </html>
-
-
