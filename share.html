@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Compartir invitaciones</title>
+  <meta name="theme-color" content="#cfa6b8" />
+
+  <style>
+    :root{
+      --bg:#faf9f7; --surface:#ffffff; --ink:#2e2d2d; --muted:#6f6a67;
+      --accent:#b6c5b3; --accent-deep:#8fae94; --gild:#d8c7a4;
+      --radius:16px; --radius-sm:12px;
+      --shadow:0 10px 24px rgba(37,33,32,0.10);
+      --shadow-soft:0 6px 16px rgba(37,33,32,0.08);
+      --maxw:900px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    header{position:sticky;top:0;background:linear-gradient(180deg,#f4efe9,#faf9f7);padding:18px 16px;border-bottom:1px solid #eee;z-index:5}
+    h1{margin:0;font-size:1.25rem}
+    main{max-width:var(--maxw);margin:0 auto;padding:12px 12px 24px}
+    .bar{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 14px}
+    .bar input[type="search"]{flex:1;min-width:180px;padding:12px 14px;border:1px solid #e8e4df;border-radius:999px;background:#fff;box-shadow:var(--shadow-soft)}
+    .bar .refresh{padding:12px 16px;border-radius:999px;border:1px solid #e8e4df;background:#fff;box-shadow:var(--shadow-soft);cursor:pointer}
+    .list{display:grid;gap:12px}
+    .card{
+      background:var(--surface);border:1px solid #eee;border-radius:var(--radius);
+      box-shadow:var(--shadow);padding:14px 14px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px
+    }
+    .title{font-weight:600}
+    .sub{color:var(--muted);font-size:.95rem}
+    .btn{
+      background:linear-gradient(180deg,var(--accent),var(--accent-deep));
+      color:#fff;border:none;border-radius:999px;padding:12px 16px;min-width:120px;
+      cursor:pointer;box-shadow:var(--shadow-soft);font-weight:600
+    }
+    .btn:active{transform:translateY(1px)}
+    .empty{padding:24px;text-align:center;color:var(--muted)}
+    .toast{
+      position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+      background:#2f2b28;color:#fff;padding:10px 14px;border-radius:999px;
+      box-shadow:var(--shadow-soft);opacity:0;pointer-events:none;transition:opacity .2s
+    }
+    .toast.show{opacity:1}
+    footer{max-width:var(--maxw);margin:22px auto 28px;color:var(--muted);text-align:center;font-size:.95rem}
+    @media (min-width:720px){
+      .card{grid-template-columns:2fr 1fr auto}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Compartir invitaciones</h1>
+  </header>
+
+  <main>
+    <div class="bar">
+      <input id="q" type="search" placeholder="Buscar por nombre/familia…" aria-label="Buscar invitación">
+      <button class="refresh" id="reload" aria-label="Recargar lista">Recargar</button>
+    </div>
+
+    <div id="list" class="list" role="list"></div>
+    <div id="empty" class="empty" hidden>No hay invitaciones para mostrar.</div>
+  </main>
+
+  <footer>Consejo: en Android, el botón “Compartir” abrirá el menú nativo (WhatsApp, Gmail, Mensajes…)</footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">Copiado al portapapeles</div>
+
+  <script>
+    (function(){
+      // Base pública de la invitación principal
+      const BASE_LINK = "https://weddinglinklove-prog.github.io/ubaldo-cristy/";
+      const JSON_URL  = "invitation_list.json?v=" + Date.now(); // evita cache
+
+      const $list  = document.getElementById('list');
+      const $empty = document.getElementById('empty');
+      const $q     = document.getElementById('q');
+      const $toast = document.getElementById('toast');
+
+      let data = {}; // { key: {description, qty, link?}, ... }
+      let keys = [];
+
+      function toast(msg){
+        $toast.textContent = msg || "Copiado al portapapeles";
+        $toast.classList.add('show');
+        setTimeout(()=> $toast.classList.remove('show'), 1400);
+      }
+
+      function buildShareURL(key){
+        return BASE_LINK + "?k=" + encodeURIComponent(key);
+      }
+
+      async function load(){
+        $list.innerHTML = "";
+        $empty.hidden = true;
+        try{
+          const res = await fetch(JSON_URL, {cache:'no-store'});
+          if(!res.ok) throw new Error("No se pudo cargar invitation_list.json");
+          const json = await res.json();
+          data = json.invitations || {};
+          keys = Object.keys(data);
+          render();
+        }catch(err){
+          $empty.hidden = false;
+          $empty.textContent = "Error al cargar la lista. Verifica el archivo invitation_list.json";
+          console.error(err);
+        }
+      }
+
+      function render(){
+        const term = ($q.value || "").toLowerCase().trim();
+        const filtered = keys.filter(k => {
+          const inv = data[k] || {};
+          const t = ((inv.description||"") + " " + (inv.qty??"")).toLowerCase();
+          return !term || t.includes(term);
+        });
+
+        $list.innerHTML = "";
+        if(filtered.length === 0){
+          $empty.hidden = false;
+          $empty.textContent = term ? "Sin resultados para tu búsqueda." : "No hay invitaciones para mostrar.";
+          return;
+        }
+        $empty.hidden = true;
+
+        for(const key of filtered){
+          const inv = data[key];
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.setAttribute('role','listitem');
+
+          const title = document.createElement('div');
+          title.innerHTML = `
+            <div class="title">${escapeHTML(inv.description || "(sin descripción)")}</div>
+            <div class="sub">Cupo: ${Number(inv.qty ?? 0)}</div>
+            <div class="sub">Clave: ${escapeHTML(key)}</div>
+          `;
+
+          const btn = document.createElement('button');
+          btn.className = 'btn';
+          btn.type = 'button';
+          btn.textContent = 'Compartir';
+          btn.addEventListener('click', () => shareKey(key, inv));
+
+          card.appendChild(title);
+          // espacio flexible en grid si se quiere otra columna
+          const spacer = document.createElement('div');
+          spacer.style.display = 'none'; // reservado para futuras columnas
+          card.appendChild(spacer);
+          card.appendChild(btn);
+          $list.appendChild(card);
+        }
+      }
+
+      async function shareKey(key, inv){
+        const url   = buildShareURL(key);
+        const title = "Invitación de boda — Diana & Ubaldo";
+        const text  = `Invitación para: ${inv.description} · Cupo: ${inv.qty}\nConfirma aquí:`;
+
+        if(navigator.share){
+          try{
+            await navigator.share({ title, text, url });
+            // Compartido con éxito o cancelado sin error
+            return;
+          }catch(err){
+            // Si usuario cancela, no hacemos nada; si es error real, continuamos al fallback
+            console.debug("navigator.share falló o fue cancelado:", err);
+          }
+        }
+
+        // Fallback: copiar al portapapeles
+        try{
+          await navigator.clipboard.writeText(url);
+          toast("Enlace copiado");
+        }catch(e){
+          // Último recurso: abrir prompt
+          window.prompt("Copia el enlace:", url);
+        }
+      }
+
+      function escapeHTML(s){
+        return String(s).replace(/[&<>"']/g, m => ({
+          "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+        }[m]));
+      }
+
+      // Eventos
+      document.getElementById('reload').addEventListener('click', load);
+      $q.addEventListener('input', render);
+
+      // Init
+      load();
+    })();
+  </script>
+</body>
+</html>
